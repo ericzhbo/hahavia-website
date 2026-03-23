@@ -24,24 +24,24 @@ async function loadProducts() {
 
 function loadSampleProducts() {
     products = [
-        { id: 1, name: 'Padded Jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 68, moq: '800 PCS/COLOR', description: 'High-quality padded jacket with 100% nylon fabric.', image_url: '/images/products/product-01.png' },
-        { id: 2, name: 'Padded Jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 79, moq: '1000 PCS/COLOR', description: 'Premium padded jacket with excellent insulation properties.', image_url: '/images/products/product-02.png' },
-        { id: 3, name: 'Padded Coat', fabric: '100% nylon', fabric_weight: '60g/m2', price: 83, moq: '1000 PCS/COLOR', description: 'Elegant padded coat suitable for both casual and formal occasions.', image_url: '/images/products/product-03.png' },
-        { id: 4, name: 'Padded Coat', fabric: '100% nylon', fabric_weight: '50g/m2', price: 87, moq: '1000 PCS/COLOR', description: 'Stylish padded coat with modern design.', image_url: '/images/products/product-04.png' },
-        { id: 5, name: 'Padded Jacket', fabric: '100% nylon', fabric_weight: '60g/m2', price: 87, moq: '1000 PCS/COLOR', description: 'Durable padded jacket perfect for outdoor activities.', image_url: '/images/products/product-05.png' },
-        { id: 6, name: 'Padded Jacket', fabric: '100% polyester', fabric_weight: '60g/m2', price: 88, moq: '800 PCS/COLOR', description: 'Lightweight padded jacket with polyester fabric.', image_url: '/images/products/product-06.png' },
-        { id: 7, name: 'Padded Coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 96, moq: '1000 PCS/COLOR', description: 'Premium padded coat with cotton blend sleeves.', image_url: '/images/products/product-07.png' },
-        { id: 8, name: 'Padded Coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 97, moq: '1000 PCS/COLOR', description: 'High-end padded coat with superior quality.', image_url: '/images/products/product-08.png' },
-        { id: 9, name: 'Padded Coat', fabric: '100% polyester', fabric_weight: '70g/m2', price: 105, moq: '1000 PCS/COLOR', description: 'Luxury padded coat for extreme cold.', image_url: '/images/products/product-09.png' },
-        { id: 10, name: 'Men\'s Jacket', fabric: '100% polyester', fabric_weight: '280g/m2', price: 65, moq: '1000 PCS/COLOR', description: 'Classic men\'s jacket with durable polyester.', image_url: '/images/products/product-10.png' },
-        { id: 11, name: 'Men\'s Jacket', fabric: '73% polyester 15% polyamide 12% cotton', fabric_weight: '95g/m2', price: 89, moq: '1000 PCS/COLOR', description: 'Premium men\'s jacket with blend fabric.', image_url: '/images/products/product-11.png' },
-        { id: 12, name: 'Vest', fabric: '100% polyester', fabric_weight: '280g/m2', price: 72, moq: '1000 PCS/COLOR', description: 'Versatile vest perfect for layering.', image_url: '/images/products/product-12.png' },
-        { id: 13, name: 'Padded Jacket', fabric: '100% polyester', price: 94, moq: '1000 PCS/COLOR', description: 'Comfortable padded jacket for everyday wear.', image_url: '/images/products/product-13.png' },
-        { id: 14, name: 'Padded Jacket', fabric: '100% polyester', price: 95, moq: '1000 PCS/COLOR', description: 'Stylish padded jacket with modern aesthetic.', image_url: '/images/products/product-14.png' },
-        { id: 15, name: 'Woolen Coat', fabric: '100% polyester', fabric_weight: '450g/m2', price: 93, moq: '1000 PCS/COLOR', description: 'Elegant woolen-style coat.', image_url: '/images/products/product-15.png' },
-        { id: 16, name: 'Leather Jacket', fabric: 'PU leather', fabric_weight: '300g/m2', price: 87, moq: '1000 PCS/COLOR', description: 'Classic leather jacket with PU material.', image_url: '/images/products/product-16.png' },
-        { id: 17, name: 'Leather Jacket', fabric: 'PU leather', fabric_weight: '280g/m2', price: 88, moq: '1000 PCS/COLOR', description: 'Lightweight leather jacket for year-round wear.', image_url: '/images/products/product-17.png' },
-        { id: 18, name: 'Leather Jacket', fabric: 'PU leather', fabric_weight: '300g/m2', price: 89, moq: '1000 PCS/COLOR', description: 'Premium leather jacket with superior craftsmanship.', image_url: '/images/products/product-18.png' }
+        { id: 1, name: 'padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 68, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-01.png' },
+        { id: 2, name: 'Padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 79, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-02.png' },
+        { id: 3, name: 'padded coat', fabric: '100% nylon', fabric_weight: '60g/m2', price: 83, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-03.png' },
+        { id: 4, name: 'Padded coat', fabric: '100% nylon', fabric_weight: '50G/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-04.png' },
+        { id: 5, name: 'padded jacket', fabric: '100% nylon', fabric_weight: '60g/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-05.png' },
+        { id: 6, name: 'padded jacket', fabric: '100% polyester', fabric_weight: '60G/M2', price: 88, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-06.png' },
+        { id: 7, name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 96, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-07.png' },
+        { id: 8, name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 97, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-08.png' },
+        { id: 9, name: 'Padded coat', fabric: '100% polyester', fabric_weight: '70G/m2', price: 105, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-09.png' },
+        { id: 10, name: 'Men\'s jacket', fabric: '100% Polyester', fabric_weight: '280g/m2', price: 65, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-10.png' },
+        { id: 11, name: 'Men\'s jacket', fabric: '73% Polyester/15% Polyamide/12% Cotton', fabric_weight: '95G/m2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-11.png' },
+        { id: 12, name: 'vest', fabric: '100% polyester', fabric_weight: '280g/m2', price: 72, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-12.png' },
+        { id: 13, name: 'padded jacket', fabric: '100% polyester', price: 94, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-13.png' },
+        { id: 14, name: 'Padded jacket', fabric: '100% polyester', price: 95, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-14.png' },
+        { id: 15, name: 'WolLEN coat', fabric: '100% polyester', fabric_weight: '450g/m2', price: 93, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-15.png' },
+        { id: 16, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-16.png' },
+        { id: 17, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '280G/M2', price: 88, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-17.png' },
+        { id: 18, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-18.png' }
     ];
     renderProducts();
 }
