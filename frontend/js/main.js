@@ -1,6 +1,3 @@
-const API_BASE = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3001/api' 
-  : 'https://hahavia-backend.up.railway.app/api';
 let products = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,38 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadProducts() {
+    const localProducts = localStorage.getItem('hahavia_products');
+    if (localProducts) {
+        products = JSON.parse(localProducts);
+        renderProducts();
+        return;
+    }
+    
     try {
-        const response = await fetch(`${API_BASE}/products`);
+        const response = await fetch('/data/products.json');
         products = await response.json();
+        localStorage.setItem('hahavia_products', JSON.stringify(products));
         renderProducts();
     } catch (error) {
-        console.error('Error loading products from API, using local data:', error);
-        loadSampleProducts();
+        console.error('Error loading products:', error);
+        alert('Failed to load products');
     }
-}
-
-function loadSampleProducts() {
-    products = [
-        { id: 1, name: 'padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 68, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-01.png' },
-        { id: 2, name: 'Padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 79, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-02.png' },
-        { id: 3, name: 'padded coat', fabric: '100% nylon', fabric_weight: '60g/m2', price: 83, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-03.png' },
-        { id: 4, name: 'Padded coat', fabric: '100% nylon', fabric_weight: '50G/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-04.png' },
-        { id: 5, name: 'padded jacket', fabric: '100% nylon', fabric_weight: '60g/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-05.png' },
-        { id: 6, name: 'padded jacket', fabric: '100% polyester', fabric_weight: '60G/M2', price: 88, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-06.png' },
-        { id: 7, name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 96, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-07.png' },
-        { id: 8, name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 97, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-08.png' },
-        { id: 9, name: 'Padded coat', fabric: '100% polyester', fabric_weight: '70G/m2', price: 105, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-09.png' },
-        { id: 10, name: 'Men\'s jacket', fabric: '100% Polyester', fabric_weight: '280g/m2', price: 65, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-10.png' },
-        { id: 11, name: 'Men\'s jacket', fabric: '73% Polyester/15% Polyamide/12% Cotton', fabric_weight: '95G/m2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-11.png' },
-        { id: 12, name: 'vest', fabric: '100% polyester', fabric_weight: '280g/m2', price: 72, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-12.png' },
-        { id: 13, name: 'padded jacket', fabric: '100% polyester', price: 94, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-13.png' },
-        { id: 14, name: 'Padded jacket', fabric: '100% polyester', price: 95, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-14.png' },
-        { id: 15, name: 'WolLEN coat', fabric: '100% polyester', fabric_weight: '450g/m2', price: 93, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-15.png' },
-        { id: 16, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-16.png' },
-        { id: 17, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '280G/M2', price: 88, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-17.png' },
-        { id: 18, name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-18.png' }
-    ];
-    renderProducts();
 }
 
 function renderProducts() {
@@ -174,24 +155,24 @@ function initContactForm() {
     if (!form) return;
 
     form.onsubmit = async (e) => {
-        e.preventDefault();
-
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
         const message = document.getElementById('message').value.trim();
 
         if (!name) {
+            e.preventDefault();
             alert('Please enter your name');
             return;
         }
 
         if (!email || !isValidEmail(email)) {
+            e.preventDefault();
             alert('Please enter a valid email address');
             return;
         }
 
         if (!message) {
+            e.preventDefault();
             alert('Please enter your message');
             return;
         }
@@ -199,37 +180,6 @@ function initContactForm() {
         submitBtn.disabled = true;
         btnText.classList.add('hidden');
         btnLoader.classList.remove('hidden');
-
-        const formData = {
-            customer_name: name,
-            email: email,
-            phone: phone,
-            message: message,
-            status: 'pending'
-        };
-
-        try {
-            const response = await fetch(`${API_BASE}/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                alert('Thank you for your message! We will get back to you soon.');
-                form.reset();
-            } else {
-                throw new Error('Failed to submit');
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Thank you for your message! We will get back to you soon.');
-            form.reset();
-        } finally {
-            submitBtn.disabled = false;
-            btnText.classList.remove('hidden');
-            btnLoader.classList.add('hidden');
-        }
     };
 }
 
