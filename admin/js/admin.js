@@ -141,7 +141,6 @@ function renderProducts(products) {
         <tr>
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.name}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.fabric || '-'}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">¥${product.price}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.moq || '-'}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
                 <button onclick="editProduct(${product.id})" class="text-blue-600 hover:text-blue-900 mr-3">
@@ -169,7 +168,6 @@ function openProductModal(product = null) {
         document.getElementById('productFabric').value = product.fabric || '';
         document.getElementById('productFabricWeight').value = product.fabric_weight || '';
         document.getElementById('productSleeveYarn').value = product.sleeve_yarn || '';
-        document.getElementById('productPrice').value = product.price;
         document.getElementById('productMoq').value = product.moq || '';
         document.getElementById('productDescription').value = product.description || '';
         document.getElementById('productImageUrl').value = product.image_url || '';
@@ -194,7 +192,6 @@ async function handleProductSubmit(e) {
         fabric: document.getElementById('productFabric').value,
         fabric_weight: document.getElementById('productFabricWeight').value,
         sleeve_yarn: document.getElementById('productSleeveYarn').value,
-        price: parseFloat(document.getElementById('productPrice').value),
         moq: document.getElementById('productMoq').value,
         description: document.getElementById('productDescription').value,
         image_url: document.getElementById('productImageUrl').value

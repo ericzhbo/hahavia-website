@@ -4,7 +4,7 @@ const API_BASE = window.location.hostname === 'localhost'
 let products = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadSampleProducts();
+    loadProducts();
     initMobileMenu();
     setCurrentYear();
     initContactForm();
@@ -65,8 +65,7 @@ function renderProducts() {
             <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2 text-slate-800" style="font-family: 'Playfair Display', serif;">${product.name}</h3>
                 <p class="text-slate-500 text-sm mb-4" style="font-family: 'Lato', sans-serif;">${product.fabric}${product.fabric_weight ? `, ${product.fabric_weight}` : ''}</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-2xl font-bold text-emerald-700" style="font-family: 'Playfair Display', serif;">¥${product.price}</span>
+                <div class="flex justify-end">
                     <span class="text-sm text-slate-400" style="font-family: 'Lato', sans-serif;">MOQ: ${product.moq || '-'}</span>
                 </div>
             </div>
@@ -112,10 +111,6 @@ function openProductModal(product) {
                     </div>
                     ` : ''}
                     <div class="pt-4 border-t border-slate-200">
-                        <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-1" style="font-family: 'Lato', sans-serif;">Price</h4>
-                        <p class="text-4xl font-bold text-emerald-700" style="font-family: 'Playfair Display', serif;">¥${product.price}</p>
-                    </div>
-                    <div>
                         <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-1" style="font-family: 'Lato', sans-serif;">Minimum Order Quantity</h4>
                         <p class="text-lg text-slate-700" style="font-family: 'Lato', sans-serif;">${product.moq || '-'}</p>
                     </div>

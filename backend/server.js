@@ -31,7 +31,7 @@ function initDatabase() {
             fabric TEXT,
             fabric_weight TEXT,
             sleeve_yarn TEXT,
-            price REAL NOT NULL,
+            price REAL,
             moq TEXT,
             description TEXT,
             image_url TEXT,
@@ -84,29 +84,29 @@ function initDatabase() {
 // Insert sample products
 function insertSampleProducts() {
     const products = [
-        { name: 'padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 68, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-01.png' },
-        { name: 'Padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', price: 79, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-02.png' },
-        { name: 'padded coat', fabric: '100% nylon', fabric_weight: '60g/m2', price: 83, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-03.png' },
-        { name: 'Padded coat', fabric: '100% nylon', fabric_weight: '50G/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-04.png' },
-        { name: 'padded jacket', fabric: '100% nylon', fabric_weight: '60g/m2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-05.png' },
-        { name: 'padded jacket', fabric: '100% polyester', fabric_weight: '60G/M2', price: 88, moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-06.png' },
-        { name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 96, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-07.png' },
-        { name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', price: 97, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-08.png' },
-        { name: 'Padded coat', fabric: '100% polyester', fabric_weight: '70G/m2', price: 105, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-09.png' },
-        { name: 'Men\'s jacket', fabric: '100% Polyester', fabric_weight: '280g/m2', price: 65, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-10.png' },
-        { name: 'Men\'s jacket', fabric: '73% Polyester/15% Polyamide/12% Cotton', fabric_weight: '95G/m2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-11.png' },
-        { name: 'vest', fabric: '100% polyester', fabric_weight: '280g/m2', price: 72, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-12.png' },
-        { name: 'padded jacket', fabric: '100% polyester', price: 94, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-13.png' },
-        { name: 'Padded jacket', fabric: '100% polyester', price: 95, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-14.png' },
-        { name: 'WolLEN coat', fabric: '100% polyester', fabric_weight: '450g/m2', price: 93, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-15.png' },
-        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 87, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-16.png' },
-        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '280G/M2', price: 88, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-17.png' },
-        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', price: 89, moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-18.png' }
+        { name: 'padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-01.png' },
+        { name: 'Padded jacket', fabric: '100% nylon', fabric_weight: '50g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-02.png' },
+        { name: 'padded coat', fabric: '100% nylon', fabric_weight: '60g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-03.png' },
+        { name: 'Padded coat', fabric: '100% nylon', fabric_weight: '50G/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-04.png' },
+        { name: 'padded jacket', fabric: '100% nylon', fabric_weight: '60g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-05.png' },
+        { name: 'padded jacket', fabric: '100% polyester', fabric_weight: '60G/M2', moq: '800 PCS/COLOR', description: '', image_url: '/images/products/product-06.png' },
+        { name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-07.png' },
+        { name: 'padded coat', fabric: '100% nylon', sleeve_yarn: '97% cotton 3% spandex', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-08.png' },
+        { name: 'Padded coat', fabric: '100% polyester', fabric_weight: '70G/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-09.png' },
+        { name: 'Men\'s jacket', fabric: '100% Polyester', fabric_weight: '280g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-10.png' },
+        { name: 'Men\'s jacket', fabric: '73% Polyester/15% Polyamide/12% Cotton', fabric_weight: '95G/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-11.png' },
+        { name: 'vest', fabric: '100% polyester', fabric_weight: '280g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-12.png' },
+        { name: 'padded jacket', fabric: '100% polyester', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-13.png' },
+        { name: 'Padded jacket', fabric: '100% polyester', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-14.png' },
+        { name: 'WolLEN coat', fabric: '100% polyester', fabric_weight: '450g/m2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-15.png' },
+        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-16.png' },
+        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '280G/M2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-17.png' },
+        { name: 'leather jacket', fabric: 'pu leather', fabric_weight: '300G/M2', moq: '1000 PCS/COLOR', description: '', image_url: '/images/products/product-18.png' }
     ];
 
-    const stmt = db.prepare(`INSERT INTO products (name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`);
+    const stmt = db.prepare(`INSERT INTO products (name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)`);
     products.forEach(product => {
-        stmt.run([product.name, product.fabric, product.fabric_weight, product.sleeve_yarn, product.price, product.moq, product.description, product.image_url]);
+        stmt.run([product.name, product.fabric, product.fabric_weight, product.sleeve_yarn, product.moq, product.description, product.image_url]);
     });
     stmt.finalize();
     console.log('Sample products inserted');
@@ -155,30 +155,30 @@ app.get('/api/products/:id', (req, res) => {
 
 // Create product (admin only)
 app.post('/api/products', verifyToken, (req, res) => {
-    const { name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url } = req.body;
-    db.run(`INSERT INTO products (name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url],
+    const { name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url } = req.body;
+    db.run(`INSERT INTO products (name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url],
         function(err) {
             if (err) {
                 res.status(500).json({ error: err.message });
             } else {
-                res.status(201).json({ id: this.lastID, name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url });
+                res.status(201).json({ id: this.lastID, name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url });
             }
         });
 });
 
 // Update product (admin only)
 app.put('/api/products/:id', verifyToken, (req, res) => {
-    const { name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url } = req.body;
-    db.run(`UPDATE products SET name = ?, fabric = ?, fabric_weight = ?, sleeve_yarn = ?, price = ?, moq = ?, description = ?, image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
-        [name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url, req.params.id],
+    const { name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url } = req.body;
+    db.run(`UPDATE products SET name = ?, fabric = ?, fabric_weight = ?, sleeve_yarn = ?, moq = ?, description = ?, image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`,
+        [name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url, req.params.id],
         function(err) {
             if (err) {
                 res.status(500).json({ error: err.message });
             } else if (this.changes === 0) {
                 res.status(404).json({ error: 'Product not found' });
             } else {
-                res.json({ id: req.params.id, name, fabric, fabric_weight, sleeve_yarn, price, moq, description, image_url });
+                res.json({ id: req.params.id, name, fabric, fabric_weight, sleeve_yarn, moq, description, image_url });
             }
         });
 });
