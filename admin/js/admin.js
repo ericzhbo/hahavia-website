@@ -122,9 +122,7 @@ function switchPage(page) {
     document.getElementById(`${page}Page`).classList.remove('hidden');
     
     if (page === 'products') loadProducts();
-    if (page === 'orders') {
-        document.getElementById('ordersInfo').classList.remove('hidden');
-    }
+    if (page === 'orders') loadOrders();
 }
 
 async function loadProducts() {
@@ -133,7 +131,7 @@ async function loadProducts() {
         products = JSON.parse(products);
     } else {
         try {
-            const response = await fetch('/data/products.json');
+            const response = await fetch('../data/products.json');
             products = await response.json();
             localStorage.setItem('hahavia_products', JSON.stringify(products));
         } catch (error) {
@@ -246,7 +244,7 @@ async function resetProducts() {
     if (!confirm('确定要重置产品数据吗？这将恢复默认的18个产品。')) return;
     
     try {
-        const response = await fetch('/data/products.json');
+        const response = await fetch('../data/products.json');
         const products = await response.json();
         localStorage.setItem('hahavia_products', JSON.stringify(products));
         loadProducts();
@@ -254,5 +252,92 @@ async function resetProducts() {
     } catch (error) {
         console.error('Error resetting products:', error);
         alert('重置失败');
+    }
+}
+
+async function loadOrders() {
+    try {
+        const response = await fetch('/api/contacts');
+        if (response.ok) {
+            const orders = await response.json();
+            renderOrders(orders);
+        } else {
+            renderOrders([]);
+        }
+    } catch (error) {
+        console.error('Error loading orders:', error);
+        renderOrders([]);
+    }
+}
+
+function renderOrders(orders) {
+    const tbody = document.getElementById('ordersTable');
+    tbody.innerHTML = orders.map(order => `
+        <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${order.name}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${order.email}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${order.phone || '-'}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <span class="px-2 py-1 rounded-full text-xs font-medium status-${order.status?.toLowerCase() || 'pending'}">${order.status || 'Pending'}</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${order.created_at ? new Date(order.created_at).toLocaleString() : '-'}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
+                <button onclick="updateOrderStatus('${order.id}')" class="text-blue-600 hover:text-blue-900 mr-3">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button onclick="viewOrder('${order.id}')" class="text-gray-600 hover:text-gray-900">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+async function updateOrderStatus(id) {
+    const statuses = ['Pending', 'Processing', 'Completed', 'Cancelled'];
+    const newStatus = prompt('输入新状态 (Pending, Processing, Completed, Cancelled):');
+    
+    if (!newStatus || !statuses.includes(newStatus)) {
+        alert('无效的状态');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/contacts?id=${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: newStatus })
+        });
+        
+        if (response.ok) {
+            loadOrders();
+        }
+    } catch (error) {
+        console.error('Error updating order:', error);
+    }
+}
+
+async function viewOrder(id) {
+    try {
+        const response = await fetch('/api/contacts');
+        const orders = await response.json();
+        const order = orders.find(o => o.id === id);
+        
+        if (order) {
+            alert(`
+表单详情：
+客户姓名: ${order.name}
+邮箱: ${order.email}
+电话: ${order.phone || '-'}
+状态: ${order.status || 'Pending'}
+消息: ${order.message || '-'}
+创建时间: ${order.created_at ? new Date(order.created_at).toLocaleString() : '-'}
+            `);
+        }
+    } catch (error) {
+        console.error('Error loading order:', error);
+        alert('加载表单详情失败');
     }
 }

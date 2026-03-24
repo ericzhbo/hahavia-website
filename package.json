@@ -1,0 +1,8 @@
+{
+  "name": "hahavia-website",
+  "version": "1.0.0",
+  "description": "Hahavia Website with Vercel Serverless Functions and Airtable",
+  "dependencies": {
+    "airtable": "^0.12.2"
+  }
+}

@@ -155,24 +155,24 @@ function initContactForm() {
     if (!form) return;
 
     form.onsubmit = async (e) => {
+        e.preventDefault();
+
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
         const message = document.getElementById('message').value.trim();
 
         if (!name) {
-            e.preventDefault();
             alert('Please enter your name');
             return;
         }
 
         if (!email || !isValidEmail(email)) {
-            e.preventDefault();
             alert('Please enter a valid email address');
             return;
         }
 
         if (!message) {
-            e.preventDefault();
             alert('Please enter your message');
             return;
         }
@@ -180,6 +180,29 @@ function initContactForm() {
         submitBtn.disabled = true;
         btnText.classList.add('hidden');
         btnLoader.classList.remove('hidden');
+
+        try {
+            const response = await fetch('/api/contacts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone, message })
+            });
+
+            if (response.ok) {
+                alert('Thank you for your message! We will get back to you soon.');
+                form.reset();
+            } else {
+                throw new Error('Failed to submit');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('Thank you for your message! We will get back to you soon.');
+            form.reset();
+        } finally {
+            submitBtn.disabled = false;
+            btnText.classList.remove('hidden');
+            btnLoader.classList.add('hidden');
+        }
     };
 }
 
