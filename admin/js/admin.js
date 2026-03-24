@@ -10,6 +10,7 @@ function initApp() {
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
         showDashboard();
+        initDashboardEventListeners();
         loadProducts();
     } else {
         showLogin();
@@ -19,8 +20,17 @@ function initApp() {
 }
 
 function initEventListeners() {
-    document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+}
+
+function initDashboardEventListeners() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
     
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -30,12 +40,30 @@ function initEventListeners() {
         });
     });
     
-    document.getElementById('addProductBtn').addEventListener('click', () => openProductModal());
-    document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
-    document.getElementById('cancelProductBtn').addEventListener('click', closeProductModal);
-    document.getElementById('productForm').addEventListener('submit', handleProductSubmit);
+    const addProductBtn = document.getElementById('addProductBtn');
+    if (addProductBtn) {
+        addProductBtn.addEventListener('click', () => openProductModal());
+    }
     
-    document.getElementById('resetProductsBtn').addEventListener('click', resetProducts);
+    const closeProductModalBtn = document.getElementById('closeProductModal');
+    if (closeProductModalBtn) {
+        closeProductModalBtn.addEventListener('click', closeProductModal);
+    }
+    
+    const cancelProductBtn = document.getElementById('cancelProductBtn');
+    if (cancelProductBtn) {
+        cancelProductBtn.addEventListener('click', closeProductModal);
+    }
+    
+    const productForm = document.getElementById('productForm');
+    if (productForm) {
+        productForm.addEventListener('submit', handleProductSubmit);
+    }
+    
+    const resetProductsBtn = document.getElementById('resetProductsBtn');
+    if (resetProductsBtn) {
+        resetProductsBtn.addEventListener('click', resetProducts);
+    }
 }
 
 function showLogin() {
@@ -60,6 +88,7 @@ function handleLogin(e) {
         localStorage.setItem('admin_user', JSON.stringify(currentUser));
         errorDiv.classList.add('hidden');
         showDashboard();
+        initDashboardEventListeners();
         loadProducts();
     } else {
         errorDiv.textContent = '用户名或密码错误';
@@ -98,12 +127,19 @@ function switchPage(page) {
     }
 }
 
-function loadProducts() {
+async function loadProducts() {
     let products = localStorage.getItem('hahavia_products');
     if (products) {
         products = JSON.parse(products);
     } else {
-        products = [];
+        try {
+            const response = await fetch('/data/products.json');
+            products = await response.json();
+            localStorage.setItem('hahavia_products', JSON.stringify(products));
+        } catch (error) {
+            console.error('Error loading default products:', error);
+            products = [];
+        }
     }
     renderProducts(products);
 }
